@@ -1,0 +1,15 @@
+{
+  "version": 2,
+  "dgSpecHash": "B+43Z1blZWGPDiwDBiJ3vY81PFtb4o0iRdbYaiR6/6SLq3ZxxOJyX6b0W8KDYpL/4gzfADDmfl/7GoTD+G/nFA==",
+  "success": true,
+  "projectFilePath": "/home/sudoman/Documents/NREL/CEEP/Refactored/gRPC-test/csharpClient/csharpClient.csproj",
+  "expectedPackageFiles": [
+    "/home/sudoman/.nuget/packages/google.protobuf/3.10.1/google.protobuf.3.10.1.nupkg.sha512",
+    "/home/sudoman/.nuget/packages/grpc/2.24.0/grpc.2.24.0.nupkg.sha512",
+    "/home/sudoman/.nuget/packages/grpc.core/2.24.0/grpc.core.2.24.0.nupkg.sha512",
+    "/home/sudoman/.nuget/packages/grpc.core.api/2.24.0/grpc.core.api.2.24.0.nupkg.sha512",
+    "/home/sudoman/.nuget/packages/grpc.tools/2.24.0/grpc.tools.2.24.0.nupkg.sha512",
+    "/home/sudoman/.nuget/packages/system.memory/4.5.3/system.memory.4.5.3.nupkg.sha512"
+  ],
+  "logs": []
+}

@@ -1,0 +1,17 @@
+syntax = "proto3";
+
+package sqrt;
+
+// option csharp_namespace = "Client";
+
+message SqrtRequest {
+	int32 number = 1;
+}
+
+message SqrtReponse {
+	double square_root = 1;
+}
+
+service SqrtService {
+    rpc sqrt (SqrtRequest) returns (SqrtReponse) {}
+}
