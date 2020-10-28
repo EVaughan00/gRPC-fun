@@ -2,10 +2,11 @@
   "version": 3,
   "targets": {
     ".NETCoreApp,Version=v3.1": {
-      "Google.Protobuf/3.10.1": {
+      "Google.Protobuf/3.13.0": {
         "type": "package",
         "dependencies": {
-          "System.Memory": "4.5.2"
+          "System.Memory": "4.5.2",
+          "System.Runtime.CompilerServices.Unsafe": "4.5.2"
         },
         "compile": {
           "lib/netstandard2.0/Google.Protobuf.dll": {}
@@ -86,25 +87,34 @@
         "runtime": {
           "lib/netcoreapp2.1/_._": {}
         }
+      },
+      "System.Runtime.CompilerServices.Unsafe/4.5.2": {
+        "type": "package",
+        "compile": {
+          "ref/netstandard2.0/System.Runtime.CompilerServices.Unsafe.dll": {}
+        },
+        "runtime": {
+          "lib/netcoreapp2.0/System.Runtime.CompilerServices.Unsafe.dll": {}
+        }
       }
     }
   },
   "libraries": {
-    "Google.Protobuf/3.10.1": {
-      "sha512": "SAmoXQYigTD/SY3bItKVCccGiOjMNjn31Hug2R17QMbhQHGy5/9XncEqbEmNYK8MjEMk6RZfuTtL1HyjEAJH4g==",
+    "Google.Protobuf/3.13.0": {
+      "sha512": "/6VgKCh0P59x/rYsBkCvkUanF0TeUYzwV9hzLIWgt23QRBaKHoxaaMkidEWhKibLR88c3PVCXyyrx9Xlb+Ne6w==",
       "type": "package",
-      "path": "google.protobuf/3.10.1",
+      "path": "google.protobuf/3.13.0",
       "files": [
         ".nupkg.metadata",
         ".signature.p7s",
-        "google.protobuf.3.10.1.nupkg.sha512",
+        "google.protobuf.3.13.0.nupkg.sha512",
         "google.protobuf.nuspec",
         "lib/net45/Google.Protobuf.dll",
         "lib/net45/Google.Protobuf.pdb",
         "lib/net45/Google.Protobuf.xml",
-        "lib/netstandard1.0/Google.Protobuf.dll",
-        "lib/netstandard1.0/Google.Protobuf.pdb",
-        "lib/netstandard1.0/Google.Protobuf.xml",
+        "lib/netstandard1.1/Google.Protobuf.dll",
+        "lib/netstandard1.1/Google.Protobuf.pdb",
+        "lib/netstandard1.1/Google.Protobuf.xml",
         "lib/netstandard2.0/Google.Protobuf.dll",
         "lib/netstandard2.0/Google.Protobuf.pdb",
         "lib/netstandard2.0/Google.Protobuf.xml"
@@ -241,29 +251,54 @@
         "useSharedDesignerContext.txt",
         "version.txt"
       ]
+    },
+    "System.Runtime.CompilerServices.Unsafe/4.5.2": {
+      "sha512": "wprSFgext8cwqymChhrBLu62LMg/1u92bU+VOwyfBimSPVFXtsNqEWC92Pf9ofzJFlk4IHmJA75EDJn1b2goAQ==",
+      "type": "package",
+      "path": "system.runtime.compilerservices.unsafe/4.5.2",
+      "files": [
+        ".nupkg.metadata",
+        ".signature.p7s",
+        "LICENSE.TXT",
+        "THIRD-PARTY-NOTICES.TXT",
+        "lib/netcoreapp2.0/System.Runtime.CompilerServices.Unsafe.dll",
+        "lib/netcoreapp2.0/System.Runtime.CompilerServices.Unsafe.xml",
+        "lib/netstandard1.0/System.Runtime.CompilerServices.Unsafe.dll",
+        "lib/netstandard1.0/System.Runtime.CompilerServices.Unsafe.xml",
+        "lib/netstandard2.0/System.Runtime.CompilerServices.Unsafe.dll",
+        "lib/netstandard2.0/System.Runtime.CompilerServices.Unsafe.xml",
+        "ref/netstandard1.0/System.Runtime.CompilerServices.Unsafe.dll",
+        "ref/netstandard1.0/System.Runtime.CompilerServices.Unsafe.xml",
+        "ref/netstandard2.0/System.Runtime.CompilerServices.Unsafe.dll",
+        "ref/netstandard2.0/System.Runtime.CompilerServices.Unsafe.xml",
+        "system.runtime.compilerservices.unsafe.4.5.2.nupkg.sha512",
+        "system.runtime.compilerservices.unsafe.nuspec",
+        "useSharedDesignerContext.txt",
+        "version.txt"
+      ]
     }
   },
   "projectFileDependencyGroups": {
     ".NETCoreApp,Version=v3.1": [
-      "Google.Protobuf >= 3.10.1",
+      "Google.protobuf >= 3.13.0",
       "Grpc >= 2.24.0",
       "Grpc.Tools >= 2.24.0"
     ]
   },
   "packageFolders": {
-    "/home/sudoman/.nuget/packages/": {}
+    "/home/evaughan/.nuget/packages/": {}
   },
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "/home/sudoman/Documents/NREL/CEEP/Refactored/gRPC-test/csharpClient/csharpClient.csproj",
+      "projectUniqueName": "/home/evaughan/Documents/NREL/CEEP/Refactor/gRPC-fun/csharpClient/csharpClient.csproj",
       "projectName": "csharpClient",
-      "projectPath": "/home/sudoman/Documents/NREL/CEEP/Refactored/gRPC-test/csharpClient/csharpClient.csproj",
-      "packagesPath": "/home/sudoman/.nuget/packages/",
-      "outputPath": "/home/sudoman/Documents/NREL/CEEP/Refactored/gRPC-test/csharpClient/obj/",
+      "projectPath": "/home/evaughan/Documents/NREL/CEEP/Refactor/gRPC-fun/csharpClient/csharpClient.csproj",
+      "packagesPath": "/home/evaughan/.nuget/packages/",
+      "outputPath": "/home/evaughan/Documents/NREL/CEEP/Refactor/gRPC-fun/csharpClient/obj/",
       "projectStyle": "PackageReference",
       "configFilePaths": [
-        "/home/sudoman/.nuget/NuGet/NuGet.Config"
+        "/home/evaughan/.nuget/NuGet/NuGet.Config"
       ],
       "originalTargetFrameworks": [
         "netcoreapp3.1"
@@ -285,9 +320,9 @@
     "frameworks": {
       "netcoreapp3.1": {
         "dependencies": {
-          "Google.Protobuf": {
+          "Google.protobuf": {
             "target": "Package",
-            "version": "[3.10.1, )"
+            "version": "[3.13.0, )"
           },
           "Grpc": {
             "target": "Package",
@@ -315,7 +350,7 @@
             "privateAssets": "all"
           }
         },
-        "runtimeIdentifierGraphPath": "/home/sudoman/dotnet/sdk/3.1.201/RuntimeIdentifierGraph.json"
+        "runtimeIdentifierGraphPath": "/home/evaughan/.dotnet/sdk/3.1.402/RuntimeIdentifierGraph.json"
       }
     }
   }

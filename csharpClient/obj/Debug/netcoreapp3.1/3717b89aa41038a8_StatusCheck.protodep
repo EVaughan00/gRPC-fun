@@ -1,0 +1,2 @@
+obj/Debug/netcoreapp3.1/StatusCheck.cs \
+obj/Debug/netcoreapp3.1/StatusCheckGrpc.cs: Grpc/StatusCheck.proto

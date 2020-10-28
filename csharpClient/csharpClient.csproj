@@ -6,7 +6,7 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <PackageReference Include="Google.Protobuf" Version="3.10.1" />
+    <PackageReference Include="Google.protobuf" Version="3.13.0" />
     <PackageReference Include="Grpc" Version="2.24.0" />
     <PackageReference Include="Grpc.Tools" Version="2.24.0">
       <PrivateAssets>all</PrivateAssets>
@@ -17,6 +17,8 @@
   <ItemGroup>    
     <Protobuf Include="Grpc\helloworld.proto" GrpcServices="Client" Generator="MSBuild:Compile" />
     <Content Include="Grpc\helloworld.proto" />
+    <Protobuf Include="Grpc\Statuscheck.proto" GrpcServices="Client" Generator="MSBuild:Compile" />
+    <Content Include="Grpc\Statuscheck.proto" />
     <None Remove="@(Grpc)" />
   </ItemGroup>
 

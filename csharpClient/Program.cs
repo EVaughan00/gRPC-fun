@@ -1,5 +1,6 @@
 ﻿using Grpc.Core;
 using Helloworld;
+using Statuscheck;
 using System;
 using System.Threading.Tasks;
 
@@ -19,17 +20,33 @@ namespace Client
                     Console.WriteLine("The client connected successfully");
             });
 
-            var client = new Greeter.GreeterClient(channel);
+            var client = new ServiceInitConfiguration.ServiceInitConfigurationClient(channel);
 
-            var request = new HelloRequest()
-            {
-                Name = "Clement"
+            var configurationInfo = new ConfigurationInfo {
+                FilePath = "/opt/minimega/images",
+                ConfigurationFile = "EmulatorsInitConfiguration.txt"
             };
 
+            var configurationResponse = client.IngestConfiguration(configurationInfo);
 
-            var response = client.SayHello(request);
+            if (configurationResponse.WasSuccessful) {
+                Console.WriteLine("Service: " + configurationResponse.ServiceName + " successfully configured");
+            } else {
+                Console.WriteLine("Service: " + configurationResponse.ServiceName + " was not configured");
+            }
 
-            Console.WriteLine(response.Message);
+            var statusRequest = new StatusRequest()
+            {
+                Message = "Requesting Service Status"
+            };
+
+            var statusResponse = client.RequestStatus(statusRequest);
+
+            if (statusResponse.IsReady) {
+                Console.WriteLine("Service: " + statusResponse.ServiceName + " is ready");
+            } else {
+                Console.WriteLine("Service: " + statusResponse.ServiceName + " is not ready");
+            }
 
             channel.ShutdownAsync().Wait();
             Console.ReadKey();

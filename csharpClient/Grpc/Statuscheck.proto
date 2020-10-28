@@ -1,0 +1,30 @@
+syntax = "proto3";
+
+option go_package = "grpc/golangServer/proto";
+
+
+package statuscheck;
+
+service ServiceInitConfiguration {
+  rpc IngestConfiguration (ConfigurationInfo) returns (IngestConfirmation) {}
+  rpc RequestStatus (StatusRequest) returns (StatusReply) {}
+}
+
+message StatusRequest {
+  string message = 1;
+}
+
+message StatusReply {
+  string serviceName = 1;
+  bool isReady = 2;
+}
+
+message ConfigurationInfo {
+  string filePath = 1;
+  string configurationFile = 2;
+}
+
+message IngestConfirmation {
+  string serviceName = 1;
+  bool wasSuccessful = 2;
+}
