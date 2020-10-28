@@ -17,7 +17,7 @@ const _ = grpc.SupportPackageIsVersion7
 //
 // For semantics around ctx use and closing/ending streaming RPCs, please refer to https://pkg.go.dev/google.golang.org/grpc/?tab=doc#ClientConn.NewStream.
 type ServiceInitConfigurationClient interface {
-	IngestConfiguration(ctx context.Context, in *ConfigurationInfo, opts ...grpc.CallOption) (*IngestConfirmation, error)
+	ConfigureAllModules(ctx context.Context, in *ConfigurationInfo, opts ...grpc.CallOption) (*IngestConfirmation, error)
 	RequestStatus(ctx context.Context, in *StatusRequest, opts ...grpc.CallOption) (*StatusReply, error)
 }
 
@@ -29,9 +29,9 @@ func NewServiceInitConfigurationClient(cc grpc.ClientConnInterface) ServiceInitC
 	return &serviceInitConfigurationClient{cc}
 }
 
-func (c *serviceInitConfigurationClient) IngestConfiguration(ctx context.Context, in *ConfigurationInfo, opts ...grpc.CallOption) (*IngestConfirmation, error) {
+func (c *serviceInitConfigurationClient) ConfigureAllModules(ctx context.Context, in *ConfigurationInfo, opts ...grpc.CallOption) (*IngestConfirmation, error) {
 	out := new(IngestConfirmation)
-	err := c.cc.Invoke(ctx, "/statuscheck.ServiceInitConfiguration/IngestConfiguration", in, out, opts...)
+	err := c.cc.Invoke(ctx, "/statuscheck.ServiceInitConfiguration/ConfigureAllModules", in, out, opts...)
 	if err != nil {
 		return nil, err
 	}
@@ -51,7 +51,7 @@ func (c *serviceInitConfigurationClient) RequestStatus(ctx context.Context, in *
 // All implementations must embed UnimplementedServiceInitConfigurationServer
 // for forward compatibility
 type ServiceInitConfigurationServer interface {
-	IngestConfiguration(context.Context, *ConfigurationInfo) (*IngestConfirmation, error)
+	ConfigureAllModules(context.Context, *ConfigurationInfo) (*IngestConfirmation, error)
 	RequestStatus(context.Context, *StatusRequest) (*StatusReply, error)
 	mustEmbedUnimplementedServiceInitConfigurationServer()
 }
@@ -60,8 +60,8 @@ type ServiceInitConfigurationServer interface {
 type UnimplementedServiceInitConfigurationServer struct {
 }
 
-func (UnimplementedServiceInitConfigurationServer) IngestConfiguration(context.Context, *ConfigurationInfo) (*IngestConfirmation, error) {
-	return nil, status.Errorf(codes.Unimplemented, "method IngestConfiguration not implemented")
+func (UnimplementedServiceInitConfigurationServer) ConfigureAllModules(context.Context, *ConfigurationInfo) (*IngestConfirmation, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method ConfigureAllModules not implemented")
 }
 func (UnimplementedServiceInitConfigurationServer) RequestStatus(context.Context, *StatusRequest) (*StatusReply, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method RequestStatus not implemented")
@@ -80,20 +80,20 @@ func RegisterServiceInitConfigurationServer(s grpc.ServiceRegistrar, srv Service
 	s.RegisterService(&_ServiceInitConfiguration_serviceDesc, srv)
 }
 
-func _ServiceInitConfiguration_IngestConfiguration_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+func _ServiceInitConfiguration_ConfigureAllModules_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
 	in := new(ConfigurationInfo)
 	if err := dec(in); err != nil {
 		return nil, err
 	}
 	if interceptor == nil {
-		return srv.(ServiceInitConfigurationServer).IngestConfiguration(ctx, in)
+		return srv.(ServiceInitConfigurationServer).ConfigureAllModules(ctx, in)
 	}
 	info := &grpc.UnaryServerInfo{
 		Server:     srv,
-		FullMethod: "/statuscheck.ServiceInitConfiguration/IngestConfiguration",
+		FullMethod: "/statuscheck.ServiceInitConfiguration/ConfigureAllModules",
 	}
 	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
-		return srv.(ServiceInitConfigurationServer).IngestConfiguration(ctx, req.(*ConfigurationInfo))
+		return srv.(ServiceInitConfigurationServer).ConfigureAllModules(ctx, req.(*ConfigurationInfo))
 	}
 	return interceptor(ctx, in, info, handler)
 }
@@ -121,8 +121,8 @@ var _ServiceInitConfiguration_serviceDesc = grpc.ServiceDesc{
 	HandlerType: (*ServiceInitConfigurationServer)(nil),
 	Methods: []grpc.MethodDesc{
 		{
-			MethodName: "IngestConfiguration",
-			Handler:    _ServiceInitConfiguration_IngestConfiguration_Handler,
+			MethodName: "ConfigureAllModules",
+			Handler:    _ServiceInitConfiguration_ConfigureAllModules_Handler,
 		},
 		{
 			MethodName: "RequestStatus",

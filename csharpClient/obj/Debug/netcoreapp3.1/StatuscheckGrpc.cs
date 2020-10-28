@@ -17,10 +17,10 @@ namespace Statuscheck {
     static readonly grpc::Marshaller<global::Statuscheck.StatusRequest> __Marshaller_statuscheck_StatusRequest = grpc::Marshallers.Create((arg) => global::Google.Protobuf.MessageExtensions.ToByteArray(arg), global::Statuscheck.StatusRequest.Parser.ParseFrom);
     static readonly grpc::Marshaller<global::Statuscheck.StatusReply> __Marshaller_statuscheck_StatusReply = grpc::Marshallers.Create((arg) => global::Google.Protobuf.MessageExtensions.ToByteArray(arg), global::Statuscheck.StatusReply.Parser.ParseFrom);
 
-    static readonly grpc::Method<global::Statuscheck.ConfigurationInfo, global::Statuscheck.IngestConfirmation> __Method_IngestConfiguration = new grpc::Method<global::Statuscheck.ConfigurationInfo, global::Statuscheck.IngestConfirmation>(
+    static readonly grpc::Method<global::Statuscheck.ConfigurationInfo, global::Statuscheck.IngestConfirmation> __Method_ConfigureAllModules = new grpc::Method<global::Statuscheck.ConfigurationInfo, global::Statuscheck.IngestConfirmation>(
         grpc::MethodType.Unary,
         __ServiceName,
-        "IngestConfiguration",
+        "ConfigureAllModules",
         __Marshaller_statuscheck_ConfigurationInfo,
         __Marshaller_statuscheck_IngestConfirmation);
 
@@ -60,21 +60,21 @@ namespace Statuscheck {
       {
       }
 
-      public virtual global::Statuscheck.IngestConfirmation IngestConfiguration(global::Statuscheck.ConfigurationInfo request, grpc::Metadata headers = null, global::System.DateTime? deadline = null, global::System.Threading.CancellationToken cancellationToken = default(global::System.Threading.CancellationToken))
+      public virtual global::Statuscheck.IngestConfirmation ConfigureAllModules(global::Statuscheck.ConfigurationInfo request, grpc::Metadata headers = null, global::System.DateTime? deadline = null, global::System.Threading.CancellationToken cancellationToken = default(global::System.Threading.CancellationToken))
       {
-        return IngestConfiguration(request, new grpc::CallOptions(headers, deadline, cancellationToken));
+        return ConfigureAllModules(request, new grpc::CallOptions(headers, deadline, cancellationToken));
       }
-      public virtual global::Statuscheck.IngestConfirmation IngestConfiguration(global::Statuscheck.ConfigurationInfo request, grpc::CallOptions options)
+      public virtual global::Statuscheck.IngestConfirmation ConfigureAllModules(global::Statuscheck.ConfigurationInfo request, grpc::CallOptions options)
       {
-        return CallInvoker.BlockingUnaryCall(__Method_IngestConfiguration, null, options, request);
+        return CallInvoker.BlockingUnaryCall(__Method_ConfigureAllModules, null, options, request);
       }
-      public virtual grpc::AsyncUnaryCall<global::Statuscheck.IngestConfirmation> IngestConfigurationAsync(global::Statuscheck.ConfigurationInfo request, grpc::Metadata headers = null, global::System.DateTime? deadline = null, global::System.Threading.CancellationToken cancellationToken = default(global::System.Threading.CancellationToken))
+      public virtual grpc::AsyncUnaryCall<global::Statuscheck.IngestConfirmation> ConfigureAllModulesAsync(global::Statuscheck.ConfigurationInfo request, grpc::Metadata headers = null, global::System.DateTime? deadline = null, global::System.Threading.CancellationToken cancellationToken = default(global::System.Threading.CancellationToken))
       {
-        return IngestConfigurationAsync(request, new grpc::CallOptions(headers, deadline, cancellationToken));
+        return ConfigureAllModulesAsync(request, new grpc::CallOptions(headers, deadline, cancellationToken));
       }
-      public virtual grpc::AsyncUnaryCall<global::Statuscheck.IngestConfirmation> IngestConfigurationAsync(global::Statuscheck.ConfigurationInfo request, grpc::CallOptions options)
+      public virtual grpc::AsyncUnaryCall<global::Statuscheck.IngestConfirmation> ConfigureAllModulesAsync(global::Statuscheck.ConfigurationInfo request, grpc::CallOptions options)
       {
-        return CallInvoker.AsyncUnaryCall(__Method_IngestConfiguration, null, options, request);
+        return CallInvoker.AsyncUnaryCall(__Method_ConfigureAllModules, null, options, request);
       }
       public virtual global::Statuscheck.StatusReply RequestStatus(global::Statuscheck.StatusRequest request, grpc::Metadata headers = null, global::System.DateTime? deadline = null, global::System.Threading.CancellationToken cancellationToken = default(global::System.Threading.CancellationToken))
       {

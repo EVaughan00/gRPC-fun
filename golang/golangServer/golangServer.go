@@ -10,53 +10,74 @@ import (
 )
 
 import pb "grpc/golangServer/proto"
-import mods "grpc/golangServer/modules"
+import modules "grpc/golangServer/modules"
 
+/////////////////////////
+// Global Declarations //
+/////////////////////////
 const (
 	serviceName = "Emulator Service"
 )
+
 var (
 	port string = os.Getenv("GRPC_PORT")
-	modules []string = strings.Split(os.Getenv("GRPC_MODULES"), ",")
+	selectedModules []string = strings.Split(os.Getenv("GRPC_MODULES"), ",")
+	successfulConfiguration bool
 )
 
 type server struct {
 	pb.UnimplementedServiceInitConfigurationServer
 }
 
+//////////////////
+// gRPC Methods //
+//////////////////
 func (s *server) RequestStatus(ctx context.Context, in *pb.StatusRequest) (*pb.StatusReply, error) {
-	log.Printf("Received Message: %v", in.GetMessage())
-	return &pb.StatusReply{ServiceName: serviceName, IsReady: true}, nil
+	log.Printf("Sending Status Update")
+	return &pb.StatusReply{ServiceName: serviceName, IsReady: successfulConfiguration}, nil
 }
 
-func (s *server) IngestConfiguration(ctx context.Context, in *pb.ConfigurationInfo) (*pb.IngestConfirmation, error) {
+func (s *server) ConfigureAllModules(ctx context.Context, in *pb.ConfigurationInfo) (*pb.IngestConfirmation, error) {
+	log.Printf("Configuring All Modules")
 	log.Printf("Configuration File Path: %v", in.GetFilePath())
-	log.Printf("Configuration File Name: %v", in.GetConfigurationFile())
 
-	performModuleConfiguration()
+	var wasSuccessful bool
+	if len(selectedModules) > 0 {
+		wasSuccessful = routeModuleConfiguration(in.GetFilePath())
+	}
+	successfulConfiguration = wasSuccessful
 
-	return &pb.IngestConfirmation{ ServiceName: serviceName, WasSuccessful: true}, nil
+	return &pb.IngestConfirmation{ ServiceName: serviceName, WasSuccessful: wasSuccessful}, nil
 }
 
-func performModuleConfiguration() {
+//////////////////////////////////
+// Module Configuration Routing //
+//////////////////////////////////
+func routeModuleConfiguration(path string) bool {
 
-	for _, module := range modules {
+	var wasSuccessful bool
 
-		switch module {
-		case "minimega":
-			log.Printf("Loading minimega module")
-			mods.ConfigureMinimega()
+	var modulesList = modules.GetModulesList()
 
-		case "opendss": 
-			log.Printf("Loading opendss module")
-			mods.ConfigureOpenDSS()
+	for _, module := range modulesList {
+		for _, selMod := range selectedModules {
+			if module.GetName() == selMod {
+				wasSuccessful = module.Configure(path)
+			} else {
+				wasSuccessful = true
+			}
 		}
-
-
+		if !wasSuccessful {
+			break
+		}
 	}
 
+	return wasSuccessful
 }
 
+//////////
+// Main //
+//////////
 func main() {
 
 	lis, err := net.Listen("tcp", ":" + port)
@@ -68,7 +89,7 @@ func main() {
 	s := grpc.NewServer()
 	pb.RegisterServiceInitConfigurationServer(s, &server{})
 
-	log.Printf("Modules Loaded: %v", modules)
+	log.Printf("Modules Loaded: %v", selectedModules)
 
 	if err := s.Serve(lis); err != nil {
 		log.Fatalf("failed to serve: %v", err)

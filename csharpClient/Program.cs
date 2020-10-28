@@ -24,10 +24,9 @@ namespace Client
 
             var configurationInfo = new ConfigurationInfo {
                 FilePath = "/opt/minimega/images",
-                ConfigurationFile = "EmulatorsInitConfiguration.txt"
             };
 
-            var configurationResponse = client.IngestConfiguration(configurationInfo);
+            var configurationResponse = client.ConfigureAllModules(configurationInfo);
 
             if (configurationResponse.WasSuccessful) {
                 Console.WriteLine("Service: " + configurationResponse.ServiceName + " successfully configured");

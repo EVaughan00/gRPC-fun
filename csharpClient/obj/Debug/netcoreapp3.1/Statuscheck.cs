@@ -26,21 +26,21 @@ namespace Statuscheck {
           string.Concat(
             "ChZHcnBjL1N0YXR1c2NoZWNrLnByb3RvEgtzdGF0dXNjaGVjayIgCg1TdGF0",
             "dXNSZXF1ZXN0Eg8KB21lc3NhZ2UYASABKAkiMwoLU3RhdHVzUmVwbHkSEwoL",
-            "c2VydmljZU5hbWUYASABKAkSDwoHaXNSZWFkeRgCIAEoCCJAChFDb25maWd1",
-            "cmF0aW9uSW5mbxIQCghmaWxlUGF0aBgBIAEoCRIZChFjb25maWd1cmF0aW9u",
-            "RmlsZRgCIAEoCSJAChJJbmdlc3RDb25maXJtYXRpb24SEwoLc2VydmljZU5h",
-            "bWUYASABKAkSFQoNd2FzU3VjY2Vzc2Z1bBgCIAEoCDK9AQoYU2VydmljZUlu",
-            "aXRDb25maWd1cmF0aW9uElgKE0luZ2VzdENvbmZpZ3VyYXRpb24SHi5zdGF0",
-            "dXNjaGVjay5Db25maWd1cmF0aW9uSW5mbxofLnN0YXR1c2NoZWNrLkluZ2Vz",
-            "dENvbmZpcm1hdGlvbiIAEkcKDVJlcXVlc3RTdGF0dXMSGi5zdGF0dXNjaGVj",
-            "ay5TdGF0dXNSZXF1ZXN0Ghguc3RhdHVzY2hlY2suU3RhdHVzUmVwbHkiAEIZ",
-            "WhdncnBjL2dvbGFuZ1NlcnZlci9wcm90b2IGcHJvdG8z"));
+            "c2VydmljZU5hbWUYASABKAkSDwoHaXNSZWFkeRgCIAEoCCIlChFDb25maWd1",
+            "cmF0aW9uSW5mbxIQCghmaWxlUGF0aBgBIAEoCSJAChJJbmdlc3RDb25maXJt",
+            "YXRpb24SEwoLc2VydmljZU5hbWUYASABKAkSFQoNd2FzU3VjY2Vzc2Z1bBgC",
+            "IAEoCDK9AQoYU2VydmljZUluaXRDb25maWd1cmF0aW9uElgKE0NvbmZpZ3Vy",
+            "ZUFsbE1vZHVsZXMSHi5zdGF0dXNjaGVjay5Db25maWd1cmF0aW9uSW5mbxof",
+            "LnN0YXR1c2NoZWNrLkluZ2VzdENvbmZpcm1hdGlvbiIAEkcKDVJlcXVlc3RT",
+            "dGF0dXMSGi5zdGF0dXNjaGVjay5TdGF0dXNSZXF1ZXN0Ghguc3RhdHVzY2hl",
+            "Y2suU3RhdHVzUmVwbHkiAEIZWhdncnBjL2dvbGFuZ1NlcnZlci9wcm90b2IG",
+            "cHJvdG8z"));
       descriptor = pbr::FileDescriptor.FromGeneratedCode(descriptorData,
           new pbr::FileDescriptor[] { },
           new pbr::GeneratedClrTypeInfo(null, new pbr::GeneratedClrTypeInfo[] {
             new pbr::GeneratedClrTypeInfo(typeof(global::Statuscheck.StatusRequest), global::Statuscheck.StatusRequest.Parser, new[]{ "Message" }, null, null, null),
             new pbr::GeneratedClrTypeInfo(typeof(global::Statuscheck.StatusReply), global::Statuscheck.StatusReply.Parser, new[]{ "ServiceName", "IsReady" }, null, null, null),
-            new pbr::GeneratedClrTypeInfo(typeof(global::Statuscheck.ConfigurationInfo), global::Statuscheck.ConfigurationInfo.Parser, new[]{ "FilePath", "ConfigurationFile" }, null, null, null),
+            new pbr::GeneratedClrTypeInfo(typeof(global::Statuscheck.ConfigurationInfo), global::Statuscheck.ConfigurationInfo.Parser, new[]{ "FilePath" }, null, null, null),
             new pbr::GeneratedClrTypeInfo(typeof(global::Statuscheck.IngestConfirmation), global::Statuscheck.IngestConfirmation.Parser, new[]{ "ServiceName", "WasSuccessful" }, null, null, null)
           }));
     }
@@ -360,7 +360,6 @@ namespace Statuscheck {
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
     public ConfigurationInfo(ConfigurationInfo other) : this() {
       filePath_ = other.filePath_;
-      configurationFile_ = other.configurationFile_;
       _unknownFields = pb::UnknownFieldSet.Clone(other._unknownFields);
     }
 
@@ -380,17 +379,6 @@ namespace Statuscheck {
       }
     }
 
-    /// <summary>Field number for the "configurationFile" field.</summary>
-    public const int ConfigurationFileFieldNumber = 2;
-    private string configurationFile_ = "";
-    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
-    public string ConfigurationFile {
-      get { return configurationFile_; }
-      set {
-        configurationFile_ = pb::ProtoPreconditions.CheckNotNull(value, "value");
-      }
-    }
-
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
     public override bool Equals(object other) {
       return Equals(other as ConfigurationInfo);
@@ -405,7 +393,6 @@ namespace Statuscheck {
         return true;
       }
       if (FilePath != other.FilePath) return false;
-      if (ConfigurationFile != other.ConfigurationFile) return false;
       return Equals(_unknownFields, other._unknownFields);
     }
 
@@ -413,7 +400,6 @@ namespace Statuscheck {
     public override int GetHashCode() {
       int hash = 1;
       if (FilePath.Length != 0) hash ^= FilePath.GetHashCode();
-      if (ConfigurationFile.Length != 0) hash ^= ConfigurationFile.GetHashCode();
       if (_unknownFields != null) {
         hash ^= _unknownFields.GetHashCode();
       }
@@ -431,10 +417,6 @@ namespace Statuscheck {
         output.WriteRawTag(10);
         output.WriteString(FilePath);
       }
-      if (ConfigurationFile.Length != 0) {
-        output.WriteRawTag(18);
-        output.WriteString(ConfigurationFile);
-      }
       if (_unknownFields != null) {
         _unknownFields.WriteTo(output);
       }
@@ -445,9 +427,6 @@ namespace Statuscheck {
       int size = 0;
       if (FilePath.Length != 0) {
         size += 1 + pb::CodedOutputStream.ComputeStringSize(FilePath);
-      }
-      if (ConfigurationFile.Length != 0) {
-        size += 1 + pb::CodedOutputStream.ComputeStringSize(ConfigurationFile);
       }
       if (_unknownFields != null) {
         size += _unknownFields.CalculateSize();
@@ -463,9 +442,6 @@ namespace Statuscheck {
       if (other.FilePath.Length != 0) {
         FilePath = other.FilePath;
       }
-      if (other.ConfigurationFile.Length != 0) {
-        ConfigurationFile = other.ConfigurationFile;
-      }
       _unknownFields = pb::UnknownFieldSet.MergeFrom(_unknownFields, other._unknownFields);
     }
 
@@ -479,10 +455,6 @@ namespace Statuscheck {
             break;
           case 10: {
             FilePath = input.ReadString();
-            break;
-          }
-          case 18: {
-            ConfigurationFile = input.ReadString();
             break;
           }
         }

@@ -6,7 +6,7 @@ option go_package = "grpc/golangServer/proto";
 package statuscheck;
 
 service ServiceInitConfiguration {
-  rpc IngestConfiguration (ConfigurationInfo) returns (IngestConfirmation) {}
+  rpc ConfigureAllModules (ConfigurationInfo) returns (IngestConfirmation) {}
   rpc RequestStatus (StatusRequest) returns (StatusReply) {}
 }
 
@@ -21,7 +21,6 @@ message StatusReply {
 
 message ConfigurationInfo {
   string filePath = 1;
-  string configurationFile = 2;
 }
 
 message IngestConfirmation {

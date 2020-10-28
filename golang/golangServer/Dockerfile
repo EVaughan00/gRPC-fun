@@ -4,7 +4,7 @@ WORKDIR /app
 EXPOSE 50051
 
 ENV GRPC_PORT 50051
-ENV GRPC_MODULES minimega
+ENV GRPC_MODULES minimega,parser
 
 RUN apt update && apt install -y curl unzip git wget
 
