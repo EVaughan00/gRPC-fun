@@ -6,15 +6,20 @@ EXPOSE 50051
 ENV GRPC_PORT 50051
 ENV GRPC_MODULES minimega
 
-RUN apt update && apt install -y curl unzip git
+RUN apt update && apt install -y curl unzip git wget
 
 COPY ["golangServer.go", "golangServer/"]
 COPY modules/ golangServer/modules/
 COPY proto/ golangServer/proto/
 COPY BuildFiles/ golangServer/BuildFiles/
 
-RUN tar -C /usr/local -xzf golangServer/BuildFiles/go1.15.3.linux-amd64.tar.gz
-RUN unzip golangServer/BuildFiles/protoc-3.13.0-linux-x86_64.zip -d /root/.local
+WORKDIR golangServer/BuildFiles/
+
+RUN wget https://golang.org/dl/go1.15.3.linux-amd64.tar.gz
+RUN curl -LO https://github.com/protocolbuffers/protobuf/releases/download/v3.13.0/protoc-3.13.0-linux-x86_64.zip
+
+RUN tar -C /usr/local -xzf go1.15.3.linux-amd64.tar.gz
+RUN unzip protoc-3.13.0-linux-x86_64.zip -d /root/.local
 
 ENV PATH=$PATH:/usr/local/go/bin
 ENV PATH="$PATH:/root/.local/bin"
@@ -24,7 +29,7 @@ RUN /usr/local/go/bin/go get google.golang.org/grpc/cmd/protoc-gen-go-grpc
 
 ENV PATH="$PATH:/root/go/bin"
 
-WORKDIR golangServer/
+WORKDIR /app/golangServer/
 
 ENV GO111MODULE=on
 RUN go mod init grpc/golangServer
