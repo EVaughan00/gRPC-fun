@@ -40,20 +40,27 @@ func (s *server) RequestStatus(ctx context.Context, in *pb.StatusRequest) (*pb.S
 func (s *server) ConfigureAllModules(ctx context.Context, in *pb.ConfigurationInfo) (*pb.IngestConfirmation, error) {
 	log.Printf("Configuring All Modules")
 	log.Printf("Configuration File Path: %v", in.GetFilePath())
+	log.Printf("Configuration Namespace: %v", in.GetNamespace())
 
 	var wasSuccessful bool
 	if len(selectedModules) > 0 {
-		wasSuccessful = routeModuleConfiguration(in.GetFilePath())
+		wasSuccessful = routeModuleConfiguration(in.GetFilePath(), in.GetNamespace())
 	}
 	successfulConfiguration = wasSuccessful
 
-	return &pb.IngestConfirmation{ ServiceName: serviceName, WasSuccessful: wasSuccessful}, nil
+	errorMessage := ""
+
+	if (!successfulConfiguration) {
+		errorMessage = modules.GetErrorMessage()
+	}
+
+	return &pb.IngestConfirmation{ ServiceName: serviceName, WasSuccessful: wasSuccessful, ErrorMessage: errorMessage}, nil
 }
 
 //////////////////////////////////
 // Module Configuration Routing //
 //////////////////////////////////
-func routeModuleConfiguration(path string) bool {
+func routeModuleConfiguration(path, namespace string) bool {
 
 	var wasSuccessful bool
 
@@ -62,9 +69,12 @@ func routeModuleConfiguration(path string) bool {
 	for _, module := range modulesList {
 		for _, selMod := range selectedModules {
 			if module.GetName() == selMod {
-				wasSuccessful = module.Configure(path)
+				wasSuccessful = module.Configure(path, namespace)
 			} else {
 				wasSuccessful = true
+			}		
+			if !wasSuccessful {
+				break
 			}
 		}
 		if !wasSuccessful {

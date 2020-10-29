@@ -21,9 +21,11 @@ message StatusReply {
 
 message ConfigurationInfo {
   string filePath = 1;
+  string namespace = 2;
 }
 
 message IngestConfirmation {
   string serviceName = 1;
   bool wasSuccessful = 2;
+  string errorMessage = 3;
 }

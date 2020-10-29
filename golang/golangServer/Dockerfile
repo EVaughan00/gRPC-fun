@@ -12,6 +12,7 @@ COPY ["golangServer.go", "golangServer/"]
 COPY modules/ golangServer/modules/
 COPY proto/ golangServer/proto/
 COPY BuildFiles/ golangServer/BuildFiles/
+COPY Config/ golangServer/Config/
 
 WORKDIR golangServer/BuildFiles/
 
@@ -24,8 +25,10 @@ RUN unzip protoc-3.13.0-linux-x86_64.zip -d /root/.local
 ENV PATH=$PATH:/usr/local/go/bin
 ENV PATH="$PATH:/root/.local/bin"
 
-RUN /usr/local/go/bin/go get -u github.com/golang/protobuf/protoc-gen-go
-RUN /usr/local/go/bin/go get google.golang.org/grpc/cmd/protoc-gen-go-grpc
+RUN go get -u github.com/golang/protobuf/protoc-gen-go
+RUN go get google.golang.org/grpc/cmd/protoc-gen-go-grpc
+RUN go get github.com/BurntSushi/toml
+
 
 ENV PATH="$PATH:/root/go/bin"
 

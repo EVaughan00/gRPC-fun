@@ -13,7 +13,7 @@ func ConfigureOpenDSS(path string) bool {
 	return true
 }
 
-func (opendss *OpenDSS) Configure(path string) bool {
+func (opendss *OpenDSS) Configure(path, namespace string) bool {
 	log.Printf("Running OpendSS Module")
 	return false
 }

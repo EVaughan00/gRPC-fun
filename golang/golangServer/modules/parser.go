@@ -14,7 +14,7 @@ func ConfigureParser(path string) bool {
 	return true
 }
 
-func (Parser *Parser) Configure(path string) bool {
+func (Parser *Parser) Configure(path, namespace string) bool {
 	log.Printf("Running Parser Module")
 	return true
 }

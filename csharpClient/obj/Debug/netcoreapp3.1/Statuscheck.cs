@@ -26,22 +26,23 @@ namespace Statuscheck {
           string.Concat(
             "ChZHcnBjL1N0YXR1c2NoZWNrLnByb3RvEgtzdGF0dXNjaGVjayIgCg1TdGF0",
             "dXNSZXF1ZXN0Eg8KB21lc3NhZ2UYASABKAkiMwoLU3RhdHVzUmVwbHkSEwoL",
-            "c2VydmljZU5hbWUYASABKAkSDwoHaXNSZWFkeRgCIAEoCCIlChFDb25maWd1",
-            "cmF0aW9uSW5mbxIQCghmaWxlUGF0aBgBIAEoCSJAChJJbmdlc3RDb25maXJt",
-            "YXRpb24SEwoLc2VydmljZU5hbWUYASABKAkSFQoNd2FzU3VjY2Vzc2Z1bBgC",
-            "IAEoCDK9AQoYU2VydmljZUluaXRDb25maWd1cmF0aW9uElgKE0NvbmZpZ3Vy",
-            "ZUFsbE1vZHVsZXMSHi5zdGF0dXNjaGVjay5Db25maWd1cmF0aW9uSW5mbxof",
-            "LnN0YXR1c2NoZWNrLkluZ2VzdENvbmZpcm1hdGlvbiIAEkcKDVJlcXVlc3RT",
-            "dGF0dXMSGi5zdGF0dXNjaGVjay5TdGF0dXNSZXF1ZXN0Ghguc3RhdHVzY2hl",
-            "Y2suU3RhdHVzUmVwbHkiAEIZWhdncnBjL2dvbGFuZ1NlcnZlci9wcm90b2IG",
-            "cHJvdG8z"));
+            "c2VydmljZU5hbWUYASABKAkSDwoHaXNSZWFkeRgCIAEoCCI4ChFDb25maWd1",
+            "cmF0aW9uSW5mbxIQCghmaWxlUGF0aBgBIAEoCRIRCgluYW1lc3BhY2UYAiAB",
+            "KAkiVgoSSW5nZXN0Q29uZmlybWF0aW9uEhMKC3NlcnZpY2VOYW1lGAEgASgJ",
+            "EhUKDXdhc1N1Y2Nlc3NmdWwYAiABKAgSFAoMZXJyb3JNZXNzYWdlGAMgASgJ",
+            "Mr0BChhTZXJ2aWNlSW5pdENvbmZpZ3VyYXRpb24SWAoTQ29uZmlndXJlQWxs",
+            "TW9kdWxlcxIeLnN0YXR1c2NoZWNrLkNvbmZpZ3VyYXRpb25JbmZvGh8uc3Rh",
+            "dHVzY2hlY2suSW5nZXN0Q29uZmlybWF0aW9uIgASRwoNUmVxdWVzdFN0YXR1",
+            "cxIaLnN0YXR1c2NoZWNrLlN0YXR1c1JlcXVlc3QaGC5zdGF0dXNjaGVjay5T",
+            "dGF0dXNSZXBseSIAQhlaF2dycGMvZ29sYW5nU2VydmVyL3Byb3RvYgZwcm90",
+            "bzM="));
       descriptor = pbr::FileDescriptor.FromGeneratedCode(descriptorData,
           new pbr::FileDescriptor[] { },
           new pbr::GeneratedClrTypeInfo(null, new pbr::GeneratedClrTypeInfo[] {
             new pbr::GeneratedClrTypeInfo(typeof(global::Statuscheck.StatusRequest), global::Statuscheck.StatusRequest.Parser, new[]{ "Message" }, null, null, null),
             new pbr::GeneratedClrTypeInfo(typeof(global::Statuscheck.StatusReply), global::Statuscheck.StatusReply.Parser, new[]{ "ServiceName", "IsReady" }, null, null, null),
-            new pbr::GeneratedClrTypeInfo(typeof(global::Statuscheck.ConfigurationInfo), global::Statuscheck.ConfigurationInfo.Parser, new[]{ "FilePath" }, null, null, null),
-            new pbr::GeneratedClrTypeInfo(typeof(global::Statuscheck.IngestConfirmation), global::Statuscheck.IngestConfirmation.Parser, new[]{ "ServiceName", "WasSuccessful" }, null, null, null)
+            new pbr::GeneratedClrTypeInfo(typeof(global::Statuscheck.ConfigurationInfo), global::Statuscheck.ConfigurationInfo.Parser, new[]{ "FilePath", "Namespace" }, null, null, null),
+            new pbr::GeneratedClrTypeInfo(typeof(global::Statuscheck.IngestConfirmation), global::Statuscheck.IngestConfirmation.Parser, new[]{ "ServiceName", "WasSuccessful", "ErrorMessage" }, null, null, null)
           }));
     }
     #endregion
@@ -360,6 +361,7 @@ namespace Statuscheck {
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
     public ConfigurationInfo(ConfigurationInfo other) : this() {
       filePath_ = other.filePath_;
+      namespace_ = other.namespace_;
       _unknownFields = pb::UnknownFieldSet.Clone(other._unknownFields);
     }
 
@@ -379,6 +381,17 @@ namespace Statuscheck {
       }
     }
 
+    /// <summary>Field number for the "namespace" field.</summary>
+    public const int NamespaceFieldNumber = 2;
+    private string namespace_ = "";
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    public string Namespace {
+      get { return namespace_; }
+      set {
+        namespace_ = pb::ProtoPreconditions.CheckNotNull(value, "value");
+      }
+    }
+
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
     public override bool Equals(object other) {
       return Equals(other as ConfigurationInfo);
@@ -393,6 +406,7 @@ namespace Statuscheck {
         return true;
       }
       if (FilePath != other.FilePath) return false;
+      if (Namespace != other.Namespace) return false;
       return Equals(_unknownFields, other._unknownFields);
     }
 
@@ -400,6 +414,7 @@ namespace Statuscheck {
     public override int GetHashCode() {
       int hash = 1;
       if (FilePath.Length != 0) hash ^= FilePath.GetHashCode();
+      if (Namespace.Length != 0) hash ^= Namespace.GetHashCode();
       if (_unknownFields != null) {
         hash ^= _unknownFields.GetHashCode();
       }
@@ -417,6 +432,10 @@ namespace Statuscheck {
         output.WriteRawTag(10);
         output.WriteString(FilePath);
       }
+      if (Namespace.Length != 0) {
+        output.WriteRawTag(18);
+        output.WriteString(Namespace);
+      }
       if (_unknownFields != null) {
         _unknownFields.WriteTo(output);
       }
@@ -427,6 +446,9 @@ namespace Statuscheck {
       int size = 0;
       if (FilePath.Length != 0) {
         size += 1 + pb::CodedOutputStream.ComputeStringSize(FilePath);
+      }
+      if (Namespace.Length != 0) {
+        size += 1 + pb::CodedOutputStream.ComputeStringSize(Namespace);
       }
       if (_unknownFields != null) {
         size += _unknownFields.CalculateSize();
@@ -442,6 +464,9 @@ namespace Statuscheck {
       if (other.FilePath.Length != 0) {
         FilePath = other.FilePath;
       }
+      if (other.Namespace.Length != 0) {
+        Namespace = other.Namespace;
+      }
       _unknownFields = pb::UnknownFieldSet.MergeFrom(_unknownFields, other._unknownFields);
     }
 
@@ -455,6 +480,10 @@ namespace Statuscheck {
             break;
           case 10: {
             FilePath = input.ReadString();
+            break;
+          }
+          case 18: {
+            Namespace = input.ReadString();
             break;
           }
         }
@@ -490,6 +519,7 @@ namespace Statuscheck {
     public IngestConfirmation(IngestConfirmation other) : this() {
       serviceName_ = other.serviceName_;
       wasSuccessful_ = other.wasSuccessful_;
+      errorMessage_ = other.errorMessage_;
       _unknownFields = pb::UnknownFieldSet.Clone(other._unknownFields);
     }
 
@@ -520,6 +550,17 @@ namespace Statuscheck {
       }
     }
 
+    /// <summary>Field number for the "errorMessage" field.</summary>
+    public const int ErrorMessageFieldNumber = 3;
+    private string errorMessage_ = "";
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    public string ErrorMessage {
+      get { return errorMessage_; }
+      set {
+        errorMessage_ = pb::ProtoPreconditions.CheckNotNull(value, "value");
+      }
+    }
+
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
     public override bool Equals(object other) {
       return Equals(other as IngestConfirmation);
@@ -535,6 +576,7 @@ namespace Statuscheck {
       }
       if (ServiceName != other.ServiceName) return false;
       if (WasSuccessful != other.WasSuccessful) return false;
+      if (ErrorMessage != other.ErrorMessage) return false;
       return Equals(_unknownFields, other._unknownFields);
     }
 
@@ -543,6 +585,7 @@ namespace Statuscheck {
       int hash = 1;
       if (ServiceName.Length != 0) hash ^= ServiceName.GetHashCode();
       if (WasSuccessful != false) hash ^= WasSuccessful.GetHashCode();
+      if (ErrorMessage.Length != 0) hash ^= ErrorMessage.GetHashCode();
       if (_unknownFields != null) {
         hash ^= _unknownFields.GetHashCode();
       }
@@ -564,6 +607,10 @@ namespace Statuscheck {
         output.WriteRawTag(16);
         output.WriteBool(WasSuccessful);
       }
+      if (ErrorMessage.Length != 0) {
+        output.WriteRawTag(26);
+        output.WriteString(ErrorMessage);
+      }
       if (_unknownFields != null) {
         _unknownFields.WriteTo(output);
       }
@@ -577,6 +624,9 @@ namespace Statuscheck {
       }
       if (WasSuccessful != false) {
         size += 1 + 1;
+      }
+      if (ErrorMessage.Length != 0) {
+        size += 1 + pb::CodedOutputStream.ComputeStringSize(ErrorMessage);
       }
       if (_unknownFields != null) {
         size += _unknownFields.CalculateSize();
@@ -595,6 +645,9 @@ namespace Statuscheck {
       if (other.WasSuccessful != false) {
         WasSuccessful = other.WasSuccessful;
       }
+      if (other.ErrorMessage.Length != 0) {
+        ErrorMessage = other.ErrorMessage;
+      }
       _unknownFields = pb::UnknownFieldSet.MergeFrom(_unknownFields, other._unknownFields);
     }
 
@@ -612,6 +665,10 @@ namespace Statuscheck {
           }
           case 16: {
             WasSuccessful = input.ReadBool();
+            break;
+          }
+          case 26: {
+            ErrorMessage = input.ReadString();
             break;
           }
         }

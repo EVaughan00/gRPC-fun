@@ -23,7 +23,9 @@ namespace Client
             var client = new ServiceInitConfiguration.ServiceInitConfigurationClient(channel);
 
             var configurationInfo = new ConfigurationInfo {
-                FilePath = "/opt/minimega/images",
+                // FilePath = "/home/evaughan/Documents/NREL/CEEP/Refactor/gRPC-fun/golang/golangServer/Config/",
+                FilePath = "/app/golangServer/Config/",
+                Namespace = "testspace"
             };
 
             var configurationResponse = client.ConfigureAllModules(configurationInfo);
@@ -32,6 +34,7 @@ namespace Client
                 Console.WriteLine("Service: " + configurationResponse.ServiceName + " successfully configured");
             } else {
                 Console.WriteLine("Service: " + configurationResponse.ServiceName + " was not configured");
+                Console.WriteLine("Error: " + configurationResponse.ErrorMessage);
             }
 
             var statusRequest = new StatusRequest()
