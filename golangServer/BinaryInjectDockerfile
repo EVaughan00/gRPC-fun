@@ -1,0 +1,15 @@
+FROM ubuntu
+WORKDIR /app
+
+EXPOSE 50052
+
+ENV GRPC_PORT 50052
+ENV GRPC_MODULES parser
+ENV GRPC_SERVICE_NAME parser
+
+COPY ["golangServer", "golangServer/"]
+COPY Config/ golangServer/Config/
+
+CMD /app/golangServer/golangServer
+
+## docker run -d --rm --name golang-server -p 50051:50051 golang-grpc-server

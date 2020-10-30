@@ -1,0 +1,47 @@
+IDS Deployment:
+	
+
+Emulators Deployment:
+
+	// Deploy the internal mirror that mirrors all sniffer-tap traffic onto an
+	// ovs-docker interface
+	3. ovs-vsctl add-br emulators-mirror-bridge
+	4. add-mirror.sh emulators-mirror-bridge emulators-mirror sniffer-mirror-in
+	5. add-traffic-source.sh emulators-mirror {SnifferTapName} all
+
+
+
+Clusternode:
+	
+	1. ovs-docker add-port mirror-bridge sniffer-mirror-in {emulators demployment container}
+	2. ovs-docker add-port mirror-bridge sniffer-mirror-out {IDS demployment container container}
+	
+	6. add-mirror.sh hardware-mirror-bridge hardware-mirror (ovs-docker)sniffer-mirror-out
+	7. add-traffic-source.sh hardware-mirror (ovs-docker)sniffer-mirror-in
+
+
+
+// Actual Code
+
+Emulators Deployment: (Golang)
+        
+	ovs-vsctl add-br emulators-mirror-bridge
+        ovs-vsctl -- --id=@m create mirror name=emulators-mirror -- add bridge emulators-mirror-bridge mirrors @m -- --id=@port get port sniffer-mirror-in -- set mirror emulators-mirror output-port=@port
+        ovs-vsctl set Mirror emulators-mirror select_src_port=`ovs-vsctl get port thisMinimega.MinimegaConfig.SnifferTapName _uuid` select_dst_port=`ovs-vsctl get port thisMinimega.MinimegaConfig.SnifferTapName _uuid`
+
+Clusternode: (Bash)
+	
+	EMULATORS_DEPLOYMENT_POD = `docker ps | grep -o "k8s_POD_emulators.NAMESPACE*"`
+	IDS_DEPLOYMENT_POD = `docker ps | grep -o "k8s_POD_ids.NAMESPACE*"`
+	
+	SNIFFER_MIRROR_OUT = (ovs-docker)sniffer-mirror-out
+	SNIFFER_MIRROR_IN = (ovs-docker)sniffer-mirror-in
+
+	ovs-docker add-port mirror-bridge sniffer-mirror-in $EMULATORS_DEPLOYMENT_POD
+	ovs-docker add-port mirror-bridge sniffer-mirror-out $IDS_DEPLOYMENT_POD
+
+	ovs-vsctl -- --id=@m create mirror name=hardware-mirror -- add bridge hardware-mirror-bridge mirrors @m -- --id=@port get port $SNIFFER_MIRROR_OUT -- set mirror emulators-mirror output-port=@port
+	ovs-vsctl set Mirror hardware-mirror select_src_port=`ovs-vsctl get port $SNIFFER_MIRROR_IN _uuid` select_dst_port=`ovs-vsctl get port $SNIFFER_MIRROR_IN _uuid`
+
+
+	
