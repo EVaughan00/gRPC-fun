@@ -1,0 +1,25 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <OutputType>Exe</OutputType>
+    <TargetFramework>netcoreapp3.1</TargetFramework>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <PackageReference Include="Google.protobuf" Version="3.13.0" />
+    <PackageReference Include="Grpc" Version="2.24.0" />
+    <PackageReference Include="Grpc.Tools" Version="2.24.0">
+      <PrivateAssets>all</PrivateAssets>
+      <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
+    </PackageReference>
+  </ItemGroup>
+
+  <ItemGroup>    
+    <Protobuf Include="proto\GeneralWrapper.proto" GrpcServices="Client" Generator="MSBuild:Compile" />
+    <Content Include="proto\GeneralWrapper.proto" />
+    <Protobuf Include="proto\Minimega\MinimegaModule.proto" GrpcServices="Client" Generator="MSBuild:Compile" />
+    <Content Include="proto\Minimega\MinimegaModule.proto" />
+    <None Remove="@(Grpc)" />
+  </ItemGroup>
+
+</Project>

@@ -1,0 +1,2 @@
+obj/Debug/netcoreapp3.1/ModuleSpecific.cs \
+obj/Debug/netcoreapp3.1/ModuleSpecificGrpc.cs: Grpc/ModuleSpecific.proto

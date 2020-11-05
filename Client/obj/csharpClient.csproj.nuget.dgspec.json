@@ -1,0 +1,74 @@
+{
+  "format": 1,
+  "restore": {
+    "/home/evaughan/Documents/NREL/CEEP/Refactor/gRPC-fun/Client/csharpClient.csproj": {}
+  },
+  "projects": {
+    "/home/evaughan/Documents/NREL/CEEP/Refactor/gRPC-fun/Client/csharpClient.csproj": {
+      "version": "1.0.0",
+      "restore": {
+        "projectUniqueName": "/home/evaughan/Documents/NREL/CEEP/Refactor/gRPC-fun/Client/csharpClient.csproj",
+        "projectName": "csharpClient",
+        "projectPath": "/home/evaughan/Documents/NREL/CEEP/Refactor/gRPC-fun/Client/csharpClient.csproj",
+        "packagesPath": "/home/evaughan/.nuget/packages/",
+        "outputPath": "/home/evaughan/Documents/NREL/CEEP/Refactor/gRPC-fun/Client/obj/",
+        "projectStyle": "PackageReference",
+        "configFilePaths": [
+          "/home/evaughan/.nuget/NuGet/NuGet.Config"
+        ],
+        "originalTargetFrameworks": [
+          "netcoreapp3.1"
+        ],
+        "sources": {
+          "https://api.nuget.org/v3/index.json": {}
+        },
+        "frameworks": {
+          "netcoreapp3.1": {
+            "projectReferences": {}
+          }
+        },
+        "warningProperties": {
+          "warnAsError": [
+            "NU1605"
+          ]
+        }
+      },
+      "frameworks": {
+        "netcoreapp3.1": {
+          "dependencies": {
+            "Google.protobuf": {
+              "target": "Package",
+              "version": "[3.13.0, )"
+            },
+            "Grpc": {
+              "target": "Package",
+              "version": "[2.24.0, )"
+            },
+            "Grpc.Tools": {
+              "include": "Runtime, Build, Native, ContentFiles, Analyzers, BuildTransitive",
+              "suppressParent": "All",
+              "target": "Package",
+              "version": "[2.24.0, )"
+            }
+          },
+          "imports": [
+            "net461",
+            "net462",
+            "net47",
+            "net471",
+            "net472",
+            "net48"
+          ],
+          "assetTargetFallback": true,
+          "warn": true,
+          "frameworkReferences": {
+            "Microsoft.NETCore.App": {
+              "privateAssets": "all"
+            }
+          },
+          "runtimeIdentifierGraphPath": "/home/evaughan/.dotnet/sdk/3.1.402/RuntimeIdentifierGraph.json"
+        }
+      }
+    }
+  }
+}

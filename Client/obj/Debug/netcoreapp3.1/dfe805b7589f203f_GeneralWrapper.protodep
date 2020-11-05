@@ -1,0 +1,2 @@
+obj/Debug/netcoreapp3.1/GeneralWrapper.cs \
+obj/Debug/netcoreapp3.1/GeneralWrapperGrpc.cs: proto/GeneralWrapper.proto

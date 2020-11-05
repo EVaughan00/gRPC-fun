@@ -6,10 +6,12 @@ import (
 	"net"
 	"os"
 	"strings"
+	"errors"
 	"google.golang.org/grpc"
 )
 
-import pb "grpc/golangServer/proto"
+import protobuf "grpc/golangServer/proto"
+// import protobuf1 "grpc/golangServer/proto"
 import modules "grpc/golangServer/modules"
 
 /////////////////////////
@@ -17,68 +19,44 @@ import modules "grpc/golangServer/modules"
 /////////////////////////
 var (
 	port string = os.Getenv("GRPC_PORT")
-	serviceName string = os.Getenv("GRPC_SERVICE_NAME")
 	selectedModules []string = strings.Split(os.Getenv("GRPC_MODULES"), ",")
-	successfulConfiguration bool
+	moduleRegistry = modules.ModuleRegistry{}
+	errorMessage string
 )
 
-type server struct {
-	pb.UnimplementedServiceInitConfigurationServer
+type gernericServer struct {
+	protobuf.UnimplementedGeneralWrapperServiceServer
 }
+
+////////////////////
+// Error Handling //
+////////////////////
+type errorString struct {
+    s string
+}
+
+func (e *errorString) Error() string {
+    return e.s
+}
+
+func New(text string) error {
+    return &errorString{text}
+}
+
 
 //////////////////
 // gRPC Methods //
 //////////////////
-func (s *server) RequestStatus(ctx context.Context, in *pb.StatusRequest) (*pb.StatusReply, error) {
-	log.Printf("Sending Status Update")
-	return &pb.StatusReply{ServiceName: serviceName, IsReady: successfulConfiguration}, nil
-}
+func (s *gernericServer) RequestModuleContext(ctx context.Context, in *protobuf.ContextRequest) (*protobuf.ModuleContext, error) {
 
-func (s *server) ConfigureAllModules(ctx context.Context, in *pb.ConfigurationInfo) (*pb.IngestConfirmation, error) {
-	log.Printf("Configuring All Modules")
-	log.Printf("Configuration File Path: %v", in.GetFilePath())
-	log.Printf("Configuration Namespace: %v", in.GetNamespace())
+	var reference string
 
-	var wasSuccessful bool
-	if len(selectedModules) > 0 {
-		wasSuccessful = routeModuleConfiguration(in.GetFilePath(), in.GetNamespace())
-	}
-	successfulConfiguration = wasSuccessful
-
-	errorMessage := ""
-
-	if (!successfulConfiguration) {
-		errorMessage = modules.GetErrorMessage()
+	for _, module := range moduleRegistry.GetActiveModules() {
+		log.Printf("Sending Loaded Module Context: %v", module.GetContext().Reference)
+		reference = module.GetContext().Reference
 	}
 
-	return &pb.IngestConfirmation{ ServiceName: serviceName, WasSuccessful: wasSuccessful, ErrorMessage: errorMessage}, nil
-}
-
-//////////////////////////////////
-// Module Configuration Routing //
-//////////////////////////////////
-func routeModuleConfiguration(path, namespace string) bool {
-
-	var wasSuccessful bool
-
-	var modulesList = modules.GetModulesList()
-
-	for _, module := range modulesList {
-		for _, selectedMod := range selectedModules {
-			if module.GetName() == selectedMod {
-				wasSuccessful = module.Configure(path, namespace)
-			} else {
-				wasSuccessful = true
-			}		
-			if !wasSuccessful {
-				break
-			}
-		}
-		if !wasSuccessful {
-			break
-		}
-	}
-	return wasSuccessful
+	return &protobuf.ModuleContext{ Reference: reference }, nil
 }
 
 //////////
@@ -89,15 +67,53 @@ func main() {
 	lis, err := net.Listen("tcp", ":" + port)
 
 	if err != nil {
-		log.Fatalf("failed to listen: %v", err)
+		log.Fatalf("Failed to Listen: %v", err)
 	}
 
-	s := grpc.NewServer()
-	pb.RegisterServiceInitConfigurationServer(s, &server{})
+	server := grpc.NewServer()
+
+	// Register general protobuf with the gRPC Server
+	protobuf.RegisterGeneralWrapperServiceServer(server, &gernericServer{})
+
+	if err := RegisterModulesAndBindServices(server); err != nil {
+		log.Fatalf("Failed to Bind Module Services: %v", err)
+	}
+
+	if err := server.Serve(lis); err != nil {
+		log.Fatalf("Failed to Serve: %v", err)
+	}
+}
+
+func RegisterModulesAndBindServices(server grpc.ServiceRegistrar) error {
+
+	var noMatchingModulesFound bool = true
 
 	log.Printf("Modules Loaded: %v", selectedModules)
 
-	if err := s.Serve(lis); err != nil {
-		log.Fatalf("failed to serve: %v", err)
+	moduleRegistry.RegisterModules()
+	registeredModulesList := moduleRegistry.GetRegisteredModules()
+
+	if len(registeredModulesList) < 1 {
+		return errors.New("Could Not Find Any Modules to Register")
 	}
+
+	for _, module := range registeredModulesList {
+
+		for _, selectedModule := range selectedModules {
+
+			if module.GetContext().Reference == selectedModule {
+				noMatchingModulesFound = false
+
+				log.Printf("Registering Module: %v", module.GetContext().Reference)
+
+				module.RegisterAsGrpcService(server)
+			}
+		}
+	}
+
+	if noMatchingModulesFound {
+		return errors.New("Could Find Matching Modules From Selected Modules")
+	}
+
+	return nil
 }

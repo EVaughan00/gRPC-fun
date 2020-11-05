@@ -1,0 +1,61 @@
+syntax = "proto3";
+
+option go_package = "grpc/golangServer/proto/modules";
+
+
+package minimegamodule;
+
+service MinimegaService {
+  rpc Configure (Configuration) returns (Confirmation) {}
+  rpc RequestDetailedHealthCheck (StatusRequest) returns (DetailedEvaluation) {}
+  rpc UpdateConfiguration (ConfigurationUpdate) returns (Confirmation) {}
+  rpc RunCustomCommand (CustomCommand) returns (Confirmation) {}
+}
+
+message Configuration {
+  VlanSpecs vlanSpecs = 1;
+  TapSpecs tapSpecs = 2;
+  Orchestrations orchestrations = 3;
+}
+
+message VlanSpecs {
+  string managementVLAN = 1;
+  map<string, string> snifferVLANs = 2;
+  map<string, string> hilVLANs = 3;
+}
+
+message TapSpecs {
+  string netflowTapPort = 1;
+  string netflowTapIP = 2;
+  string powerTapPort = 3;
+  string snifferTapName = 4;
+  string publisherTapName = 5;
+  string publisherTapIP = 6;
+}
+
+message Orchestrations {
+  string location = 1;
+}
+
+message StatusRequest {
+  string message = 1;
+}
+
+message DetailedEvaluation {
+  bool minimegaProcessIsRunning = 1;
+  bool miniwebProcessIsRunning = 2;
+}
+
+message ConfigurationUpdate {
+  string filePath = 1;
+  string namespace = 2;
+}
+
+message CustomCommand {
+  string body = 1;
+}
+
+message Confirmation {
+  bool completed = 1;
+  string errorMessage = 2;
+}

@@ -1,0 +1,2 @@
+obj/Debug/netcoreapp3.1/MinimegaModule.cs \
+obj/Debug/netcoreapp3.1/MinimegaModuleGrpc.cs: proto/Minimega/MinimegaModule.proto

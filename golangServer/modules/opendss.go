@@ -1,28 +1,28 @@
 package modules
 
-import (
-	"log"
-)
+// import (
+// 	"log"
+// )
 
-type OpenDSS struct {
-	Module
-}
+// type OpenDSS struct {
+// 	Module
+// }
 
-func ConfigureOpenDSS(path string) bool {
-	log.Printf("Running OpenDSS Module")
-	return true
-}
+// func ConfigureOpenDSS(path string) bool {
+// 	log.Printf("Running OpenDSS Module")
+// 	return true
+// }
 
-func (opendss *OpenDSS) Configure(path, namespace string) bool {
-	log.Printf("Running OpendSS Module")
-	return false
-}
+// func (opendss *OpenDSS) Configure(path, namespace string) bool {
+// 	log.Printf("Running OpendSS Module")
+// 	return false
+// }
 
-func  (opendss *OpenDSS) customConfig() bool {
+// func  (opendss *OpenDSS) customConfig() bool {
 
-	return true
-}
+// 	return true
+// }
 
-func (opendss *OpenDSS) GetName() string {
-	return opendss.Module.Name
-}
+// func (opendss *OpenDSS) GetName() string {
+// 	return opendss.Module.Name
+// }
