@@ -11,8 +11,8 @@ type ModuleContext struct {
 type IModule interface {
 	RegisterAsGrpcService(server grpc.ServiceRegistrar)
 	GetContext() ModuleContext
-	setAsActive()
-	isActive() bool
+	SetAsActive()
+	IsActive() bool
 }
 
 ////////////////////

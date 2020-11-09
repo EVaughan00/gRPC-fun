@@ -21,31 +21,7 @@ namespace Client.Modules.Minimega
 
             var client = RegisterClient(channel);
 
-            VlanSpecs vlanSpecs = new VlanSpecs{
-                    ManagementVLAN = _configuration.ManagementVLAN,
-            };
-
-            TapSpecs tapSpecs = new TapSpecs{
-                    NetflowTapPort = _configuration.NetflowTapPort,
-                    NetflowTapIP = _configuration.NetflowTapIP,
-                    PowerTapPort = _configuration.PowerTapPort,
-                    SnifferTapName = _configuration.SnifferTapName,
-                    PublisherTapName = _configuration.PublisherTapName,
-                    PublisherTapIP = _configuration.PublisherTapIP
-            };
-
-            Orchestrations orchestrations = new Orchestrations{
-                Location = _configuration.Location
-            };
-
-            var configuration = new Configuration {
-                VlanSpecs = vlanSpecs,
-                TapSpecs = tapSpecs,
-                Orchestrations = orchestrations
-            };
-
-            configuration.VlanSpecs.SnifferVLANs.Add(_configuration.SnifferVLANs);
-            configuration.VlanSpecs.HilVLANs.Add(_configuration.HilVLANs);
+            var configuration = _configuration.ConvertToProtobuf();
 
             var confirmation = client.Configure(configuration);
 

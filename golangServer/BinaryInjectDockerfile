@@ -1,11 +1,10 @@
 FROM ubuntu
 WORKDIR /app
 
-EXPOSE 50052
+EXPOSE 50050
 
-ENV GRPC_PORT 50052
-ENV GRPC_MODULES parser
-ENV GRPC_SERVICE_NAME parser
+ENV GRPC_PORT 50050
+ENV GRPC_MODULES minimega
 
 COPY ["golangServer", "golangServer/"]
 COPY Config/ golangServer/Config/

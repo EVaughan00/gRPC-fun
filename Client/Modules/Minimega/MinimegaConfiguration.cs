@@ -1,11 +1,12 @@
 using System.Collections.Generic;
+using Minimegamodule;
 
 namespace Client.Modules.Minimega
 {
-    public class MinimegaConfiguration : IConfiguration
+    public class MinimegaConfiguration : IConfiguration<Configuration>
     {
         // public struct VlanSpecs {         
-        public string ManagementVLAN { get => ""; }
+        public string ManagementVLAN { get => "MGMT:101"; }
         public Dictionary<string, string> SnifferVLANs
         {
             get => new Dictionary<string, string>() {
@@ -14,14 +15,12 @@ namespace Client.Modules.Minimega
                     {"HIL", "104"}
                 };
         }
-
         public Dictionary<string, string> HilVLANs
         {
             get => new Dictionary<string, string>() {
                     {"HIL", "104"}
                 };
         }
-
         public string NetflowTapPort { get => "6661"; }
         public string NetflowTapIP { get => "127.0.0.1"; }
         public string PowerTapPort { get => "6662"; }
@@ -32,5 +31,35 @@ namespace Client.Modules.Minimega
         public string Location { get => "/path/to/orchestration"; }
 
 
+        public Configuration ConvertToProtobuf() {
+
+            VlanSpecs vlanSpecs = new VlanSpecs{
+                    ManagementVLAN = ManagementVLAN,
+            };
+
+            TapSpecs tapSpecs = new TapSpecs{
+                    NetflowTapPort = NetflowTapPort,
+                    NetflowTapIP = NetflowTapIP,
+                    PowerTapPort = PowerTapPort,
+                    SnifferTapName = SnifferTapName,
+                    PublisherTapName = PublisherTapName,
+                    PublisherTapIP = PublisherTapIP
+            };
+
+            Orchestrations orchestrations = new Orchestrations{
+                Location = Location
+            };
+
+            var configuration = new Configuration {
+                VlanSpecs = vlanSpecs,
+                TapSpecs = tapSpecs,
+                Orchestrations = orchestrations
+            };
+
+            configuration.VlanSpecs.SnifferVLANs.Add(SnifferVLANs);
+            configuration.VlanSpecs.HilVLANs.Add(HilVLANs);
+
+            return configuration;
+        }
     }
 }

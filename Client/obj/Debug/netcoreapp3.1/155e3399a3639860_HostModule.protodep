@@ -1,0 +1,2 @@
+obj/Debug/netcoreapp3.1/HostModule.cs \
+obj/Debug/netcoreapp3.1/HostModuleGrpc.cs: proto/Host/HostModule.proto

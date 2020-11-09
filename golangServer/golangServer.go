@@ -11,8 +11,7 @@ import (
 )
 
 import protobuf "grpc/golangServer/proto"
-// import protobuf1 "grpc/golangServer/proto"
-import modules "grpc/golangServer/modules"
+import moduleInfrastruture "grpc/golangServer/modules/infrastructure"
 
 /////////////////////////
 // Global Declarations //
@@ -20,7 +19,7 @@ import modules "grpc/golangServer/modules"
 var (
 	port string = os.Getenv("GRPC_PORT")
 	selectedModules []string = strings.Split(os.Getenv("GRPC_MODULES"), ",")
-	moduleRegistry = modules.ModuleRegistry{}
+	moduleRegistry = moduleInfrastruture.ModuleRegistry{}
 	errorMessage string
 )
 
@@ -84,6 +83,9 @@ func main() {
 	}
 }
 
+/////////////////////////
+// Module Registration //
+/////////////////////////
 func RegisterModulesAndBindServices(server grpc.ServiceRegistrar) error {
 
 	var noMatchingModulesFound bool = true

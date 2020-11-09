@@ -19,6 +19,8 @@
     <Content Include="proto\GeneralWrapper.proto" />
     <Protobuf Include="proto\Minimega\MinimegaModule.proto" GrpcServices="Client" Generator="MSBuild:Compile" />
     <Content Include="proto\Minimega\MinimegaModule.proto" />
+    <Protobuf Include="proto\Host\HostModule.proto" GrpcServices="Client" Generator="MSBuild:Compile" />
+    <Content Include="proto\Host\HostModule.proto" />
     <None Remove="@(Grpc)" />
   </ItemGroup>
 
